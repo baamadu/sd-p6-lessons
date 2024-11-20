@@ -1,8 +1,7 @@
 <?php
-session_start();
 include_once 'modules/database.php';
 include_once 'modules/functions.php';
-
+session_start();
 const FNAME_REQUIRED = 'Voornaam invullen';
 const LNAME_REQUIRED = 'Achternaam invullen';
 const EMAIL_REQUIRED = 'Email invullen';
@@ -15,7 +14,7 @@ const AGREE_REQUIRED = 'Voorwaarden accepteren';
 $errors = [];
 $inputs = [];
 
-if($_POST['verzenden']) {
+if(isset($_POST['verzenden'])) {
     // sanitize and validate fname
     $fname = filter_input(INPUT_POST, 'fname', FILTER_SANITIZE_SPECIAL_CHARS);
 
