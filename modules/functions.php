@@ -1,4 +1,28 @@
 <?php
+function checkLogin($inputs):string
+{
+    global $pdo;
+
+    $sql = 'SELECT * FORM `user` WHERE `email` = :e AND `password` = :p';
+    $sth =$pdo->prepare($sql);
+    $sth->bindParam(param:':e',&var:$inputs['email']);
+    $sth->bindParam(param:':p',&var:$inputs['password']);
+    $sth->setFetchMode(mode:PDO::FETCH_CLASS,className:'User');
+    $sth->execute();
+    $user = $sth->fetch();
+    var_dump($user);
+
+    if($user!==false)
+    {
+        $_SESSION['user']=$user;
+        if($_SESSION['user']->role=="admin")
+        {
+            return 'ADMIN';
+        }
+    }
+    return 'FAILURE';
+}
+
 function getVendors():array
 {
     global $pdo;
